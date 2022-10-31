@@ -28,7 +28,7 @@ class RegistradosController {
 
         $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
 
-        if(isset($paginacion) && $paginacion->total_paginas() < $pagina_actual){
+        if(!empty($paginacion) && $paginacion->total_paginas() < $pagina_actual){
             header("Location: /admin/registrados?page=1");
         }
 
