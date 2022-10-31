@@ -27,7 +27,7 @@ class PonentesController {
 
         $paginacion = new Paginacion($pagina_actual, $registros_por_pagina, $total);
 
-        if($paginacion->total_paginas() < $pagina_actual){
+        if(empty($paginacion) && $paginacion->total_paginas() < $pagina_actual){
             header("Location: /admin/ponentes?page=1");
         }
 
