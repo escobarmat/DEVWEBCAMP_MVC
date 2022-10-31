@@ -85,6 +85,13 @@ class RegistroController {
             header("Location: /");
             return;
         }
+        session_start();
+
+        $registro_id = Registro::where("usuario_id", $_SESSION["id"]);
+        $eventos_seleccion = EventosRegistros::where("registro_id", $registro_id->id);
+        if(empty($eventos_seleccion) && $registro_id->regalo_id === "1"){
+            header("Location: /finalizar-registro/conferencias");
+        }
 
         $registro = Registro::where("token", $id);
         if(!$registro){
@@ -156,9 +163,10 @@ class RegistroController {
             header("Location: /");
             return;
         }
-
+        $eventos_seleccion = EventosRegistros::where("registro_id", $registro->id);
+        
         //Redireccionar a boleto virtual en caso de haber finalizado su registro
-        if(isset($registro->regalo_id) && $registro->paquete_id === "1"){
+        if(isset($registro->regalo_id) && $registro->paquete_id === "1" && $eventos_seleccion){
             header("Location: /boleto?id=" . urlencode($registro->token));
             return;
         }
