@@ -89,7 +89,7 @@ class RegistroController {
 
         $registro_id = Registro::where("usuario_id", $_SESSION["id"]);
         $eventos_seleccion = EventosRegistros::where("registro_id", $registro_id->id);
-        if(empty($eventos_seleccion) && $registro_id->regalo_id === "1"){
+        if(empty($eventos_seleccion) && $registro_id->regalo_id === "1" && $registro_id->paquete_id === "1"){
             header("Location: /finalizar-registro/conferencias");
         }
 
